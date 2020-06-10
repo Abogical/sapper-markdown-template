@@ -24,11 +24,11 @@
 <h1>Recent posts</h1>
 
 <ul>
-	{#each posts as post}
+	{#each Object.entries(posts) as [ slug, post ]}
 		<!-- we're using the non-standard `rel=prefetch` attribute to
 				tell Sapper to load the data for the page as soon as
 				the user hovers over the link or taps it, instead of
 				waiting for the 'click' event -->
-		<li><a rel='prefetch' href='blog/{post.slug}'>{post.title}</a></li>
+		<li><a rel='prefetch' href='blog/{slug}'>{post.title}</a></li>
 	{/each}
 </ul>

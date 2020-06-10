@@ -1,11 +1,10 @@
 import posts from './_posts.js';
 
-const contents = JSON.stringify(posts.map(post => {
-	return {
-		title: post.title,
-		slug: post.slug
-	};
-}));
+const metaPosts = {};
+for (const [ slug, { meta } ] of Object.entries(posts))
+	metaPosts[slug] = meta;
+
+const contents = JSON.stringify(metaPosts);
 
 export function get(req, res) {
 	res.writeHead(200, {

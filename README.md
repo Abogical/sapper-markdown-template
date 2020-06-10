@@ -1,6 +1,6 @@
-# sapper-template
+# sapper-markdown-template
 
-The default [Sapper](https://github.com/sveltejs/sapper) template, available for Rollup and webpack.
+Unofficial markdown [sapper](https://github.com/sveltejs/sapper) template, available for Rollup and webpack.
 
 
 ## Getting started
@@ -8,19 +8,19 @@ The default [Sapper](https://github.com/sveltejs/sapper) template, available for
 
 ### Using `degit`
 
-[`degit`](https://github.com/Rich-Harris/degit) is a scaffolding tool that lets you create a directory from a branch in a repository. Use either the `rollup` or `webpack` branch in `sapper-template`:
+[`degit`](https://github.com/Rich-Harris/degit) is a scaffolding tool that lets you create a directory from a branch in a repository. Use either the `rollup` or `webpack` branch in `sapper-markdown-template`:
 
 ```bash
 # for Rollup
-npx degit "sveltejs/sapper-template#rollup" my-app
+npx degit "Abogical/sapper-markdown-template#rollup" my-app
 # for webpack
-npx degit "sveltejs/sapper-template#webpack" my-app
+npx degit "Abogical/sapper-markdown-template#webpack" my-app
 ```
 
 
 ### Using GitHub templates
 
-Alternatively, you can use GitHub's template feature with the [sapper-template-rollup](https://github.com/sveltejs/sapper-template-rollup) or [sapper-template-webpack](https://github.com/sveltejs/sapper-template-webpack) repositories.
+Alternatively, you can use GitHub's template feature with the [sapper-markdown-template-rollup](https://github.com/Abogical/sapper-markdown-template-rollup) or [sapper-markdown-template-webpack](https://github.com/Abogical/sapper-markdown-template-webpack) repositories.
 
 
 ### Running the project
@@ -40,7 +40,7 @@ Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
 ## Structure
 
-Sapper expects to find two directories in the root of your project —  `src` and `static`.
+This template expects to find three directories in the root of your project —  `src`, `static`, and `posts`.
 
 
 ### src
@@ -75,6 +75,30 @@ import { files } from '@sapper/service-worker';
 
 ...so that you can cache them (though you can choose not to, for example if you don't want to cache very large files).
 
+### posts
+Blog posts are under the `posts` folder as markdown files. Add or edit any markdown files under this folder to change the posts on this site.
+
+The path of a post shown at the end of the URL (commonly called the slug) would be the filename of the markdown file. For example, the post at `posts/editing-posts.md` would have a slug of `editing-posts` shown in its URL (`/blog/editing-posts`).
+
+This site uses [`gray-matter`](https://npm.is/gray-matter) to extract post metadata and [`marked`](https://npm.is/marked) to parse the markdown file.
+
+#### Markdown file format
+Metadata is written at the start of the markdown file between two triple dashes (`---`).
+```
+---
+title: My first blog post!
+---
+```
+This template currently only supports adding a title. More metadata features may come in the near future.
+
+This is then followed by regular markdown. The markdown would follow any [specification `marked` implements](https://marked.js.org/#/README.md#specifications).
+
+```
+---
+title: My first blog post!
+---
+Hi everyone! This my first blog post. Checkout my [latest video](https://youtu.be/dQw4w9WgXcQ)!
+```
 
 ## Bundler config
 
@@ -108,4 +132,4 @@ npm install -D @sveltejs/svelte-virtual-list
 
 ## Bugs and feedback
 
-Sapper is in early development, and may have the odd rough edge here and there. Please be vocal over on the [Sapper issue tracker](https://github.com/sveltejs/sapper/issues).
+Are there any missing features or pesky bugs? Drop an issue or help out with a PR at https://github.com/Abogical/sapper-markdown-template
