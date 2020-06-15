@@ -33,7 +33,7 @@ Hi everyone! This my first blog post. Checkout my [latest video](https://youtu.b
 ```
 # JSON Format
 File format. See [`/blog/editing-content.json`](/blog/editing-content.json) for an example.
-```JSON
+```
 {
 	"meta": {
 		<metadata of file1>
@@ -42,7 +42,7 @@ File format. See [`/blog/editing-content.json`](/blog/editing-content.json) for 
 }
 ```
 Folder format. See [`blog.json`](/blog.json) for an example.
-```JSON
+```
 {
 	"<file1>": {
 		<metadata of file1>
