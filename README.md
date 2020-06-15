@@ -40,7 +40,7 @@ Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
 ## Structure
 
-This template expects to find three directories in the root of your project —  `src`, `static`, and `posts`.
+This template expects to find three directories in the root of your project —  `src`, `static`, and `contents`.
 
 
 ### src
@@ -75,14 +75,21 @@ import { files } from '@sapper/service-worker';
 
 ...so that you can cache them (though you can choose not to, for example if you don't want to cache very large files).
 
-### posts
-Blog posts are under the `posts` folder as markdown files. Add or edit any markdown files under this folder to change the posts on this site.
+### contents
+All contents are under the `contents` folder as markdown files. Editing any markdown files under this folder will change the pages on this site. Adding folders will also create a heirarchy of pages.
 
-The path of a post shown at the end of the URL (commonly called the slug) would be the filename of the markdown file. For example, the post at `posts/editing-posts.md` would have a slug of `editing-posts` shown in its URL (`/blog/editing-posts`).
+The template creates JSON files for each markdown file. These store the parsing result of the markdown file. Their paths is the relative path from the `contents` folder, excluding the `.md` extension. Folders also have a JSON file created for them, containing only the list of files and their metadata.
 
+As an example, the current heirarchy of this site under the `contents` folder is as follows:
+- `about.md` (About page, controls `/about`, JSON at `/about.json`)
+- `blog` (List of blogs, controls `/blog`, JSON at `blog.json`)
+	- `editing-content.md` (Blog post, controls `/blog/editing-content`, JSON at `/blog/editing-content.json`)
+
+A default blog page and about page is provided to preload these JSON files to render on this site. Feel free to customize or add more pages as needed.
+
+# Markdown file format
 This site uses [`gray-matter`](https://npm.is/gray-matter) to extract post metadata and [`marked`](https://npm.is/marked) to parse the markdown file.
 
-#### Markdown file format
 Metadata is written at the start of the markdown file between two triple dashes (`---`).
 ```
 ---
@@ -98,6 +105,28 @@ This is then followed by regular markdown. The markdown would follow any [specif
 title: My first blog post!
 ---
 Hi everyone! This my first blog post. Checkout my [latest video](https://youtu.be/dQw4w9WgXcQ)!
+```
+# JSON Format
+File format. See `/blog/editing-content.json` for an example.
+```JSON
+{
+	"meta": {
+		<metadata of file1>
+	},
+	"html": "<HTML parsed from markdown>"
+}
+```
+Folder format. See `/blog.json` for an example.
+```JSON
+{
+	"<file1>": {
+		<metadata of file1>
+	},
+	"<file2>": {
+		<metadata of file2>
+	}
+	...
+}
 ```
 
 ## Bundler config

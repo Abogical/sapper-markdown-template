@@ -1,0 +1,71 @@
+// Extract and parse all the contents on the content folder
+
+import { readdir, readFile } from 'fs';
+import { promisify } from 'util';
+import { resolve, join, basename } from 'path';
+import matter from 'gray-matter';
+import marked from 'marked';
+
+const readdirPromise = promisify(readdir);
+const readFilePromise = promisify(readFile);
+
+const contentLoader = async (parent) => {
+	const res = {};
+	for (const entry of await readdirPromise(parent, { withFileTypes: true })) {
+		const absPath = join(parent, entry.name);
+		if (entry.isDirectory())
+			res[entry.name] = contentLoader(absPath);
+		else {
+			res[basename(entry.name, '.md')] = (async () => {
+				const { data, content } = matter(await readFilePromise(absPath));
+				return {
+					meta: data,
+					html: marked(content)
+				}
+			})()
+		};
+	};
+	return res;
+};
+
+const content = contentLoader(resolve('content'));
+
+export const get = async (req, res) => {
+	// the `slug` parameter is available because
+	// this file is called [slug].json.js
+	const { path } = req.params;
+
+	let page = await content;
+	for (const subpath of path) {
+		page = await page[subpath];
+		if (!Boolean(page)) {
+			res.writeHead(404, {
+				'Content-Type': 'application/json'
+			});
+
+			res.end(JSON.stringify({
+				message: `Not found`
+			}));
+
+			return;
+		}
+	}
+
+	res.writeHead(200, {
+		'Content-Type': 'application/json'
+	});
+
+	// Single pages have an html child. If it's a list and not a single page, show only the metadata
+	let result;
+	if (page.html)
+		result = page;
+	else {
+		result = {};
+		for (const [key, entry] of Object.entries(page)) {
+			const entryRes = await entry;
+			result[key] = entryRes.meta || entryRes;
+		}
+	}
+
+	res.end(JSON.stringify(result));
+};
