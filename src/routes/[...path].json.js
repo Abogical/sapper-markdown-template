@@ -3,7 +3,7 @@
 import { readdir, readFile } from 'fs';
 import { promisify } from 'util';
 import { resolve, join, basename } from 'path';
-import matter from 'gray-matter';
+import matter from 'front-matter';
 import marked from 'marked';
 
 const readdirPromise = promisify(readdir);
@@ -17,10 +17,10 @@ const contentLoader = async (parent) => {
 			res[entry.name] = contentLoader(absPath);
 		else {
 			res[basename(entry.name, '.md')] = (async () => {
-				const { data, content } = matter(await readFilePromise(absPath));
+				const { attributes, body } = matter(await readFilePromise(absPath, 'utf-8'), { allowUnsafe: true });
 				return {
-					meta: data,
-					html: marked(content)
+					meta: attributes,
+					html: marked(body)
 				}
 			})()
 		};

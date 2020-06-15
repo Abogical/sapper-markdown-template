@@ -13,7 +13,7 @@ As an example, the current heirarchy of this site under the `contents` folder is
 A default blog page and about page is provided to preload these JSON files to render on this site. Feel free to customize or add more pages as needed.
 
 # Markdown file format
-This site uses [`gray-matter`](https://npmjs.com/package/gray-matter) to extract post metadata and [`marked`](https://npmjs.com/package/marked) to parse the markdown file.
+This site uses [`front-matter`](https://npmjs.com/package/front-matter) to extract post metadata and [`marked`](https://npmjs.com/package/marked) to parse the markdown file.
 
 Metadata is written at the start of the markdown file between two triple dashes (`---`).
 ```
