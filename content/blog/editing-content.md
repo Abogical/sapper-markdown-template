@@ -1,11 +1,11 @@
 ---
 title: Editing content
 ---
-All contents are under the `contents` folder as markdown files. Editing any markdown files under this folder will change the pages on this site. Adding folders will also create a heirarchy of pages.
+All content are under the `content` folder as markdown files. Editing any markdown files under this folder will change the pages on this site. Adding folders will also create a heirarchy of pages.
 
-The template creates JSON files for each markdown file. These store the parsing result of the markdown file. Their paths is the relative path from the `contents` folder, excluding the `.md` extension. Folders also have a JSON file created for them, containing only the list of files and their metadata.
+The template creates JSON files for each markdown file. These store the parsing result of the markdown file. Their paths is the relative path from the `content` folder, excluding the `.md` extension. Folders also have a JSON file created for them, containing only the list of files and their metadata.
 
-As an example, the current heirarchy of this site under the `contents` folder is as follows:
+As an example, the current heirarchy of this site under the `content` folder is as follows:
 - `about.md` (About page, controls [`/about`](/about), JSON at [`/about.json`](/about.json))
 - `blog` (List of blogs, controls [`/blog`](/blog), JSON at [`blog.json`](/blog.json))
 	- `editing-content.md` (This post, controls [`/blog/editing-content`](/blog/editing-content), JSON at [`/blog/editing-content.json`](/blog/editing-content.json))

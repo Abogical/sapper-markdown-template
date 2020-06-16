@@ -1,4 +1,4 @@
-// Extract and parse all the contents on the content folder
+// Extract and parse all the content on the content folder
 
 import { readdir, readFile } from 'fs';
 import { promisify } from 'util';

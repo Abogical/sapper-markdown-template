@@ -40,7 +40,7 @@ Consult [sapper.svelte.dev](https://sapper.svelte.dev) for help getting started.
 
 ## Structure
 
-This template expects to find three directories in the root of your project —  `src`, `static`, and `contents`.
+This template expects to find three directories in the root of your project —  `src`, `static`, and `content`.
 
 
 ### src
@@ -75,12 +75,12 @@ import { files } from '@sapper/service-worker';
 
 ...so that you can cache them (though you can choose not to, for example if you don't want to cache very large files).
 
-### contents
-All contents are under the `contents` folder as markdown files. Editing any markdown files under this folder will change the pages on this site. Adding folders will also create a heirarchy of pages.
+### content
+All content are under the `content` folder as markdown files. Editing any markdown files under this folder will change the pages on this site. Adding folders will also create a heirarchy of pages.
 
-The template creates JSON files for each markdown file. These store the parsing result of the markdown file. Their paths is the relative path from the `contents` folder, excluding the `.md` extension. Folders also have a JSON file created for them, containing only the list of files and their metadata.
+The template creates JSON files for each markdown file. These store the parsing result of the markdown file. Their paths is the relative path from the `content` folder, excluding the `.md` extension. Folders also have a JSON file created for them, containing only the list of files and their metadata.
 
-As an example, the current heirarchy of this site under the `contents` folder is as follows:
+As an example, the current heirarchy of this site under the `content` folder is as follows:
 - `about.md` (About page, controls `/about`, JSON at `/about.json`)
 - `blog` (List of blogs, controls `/blog`, JSON at `blog.json`)
 	- `editing-content.md` (Blog post, controls `/blog/editing-content`, JSON at `/blog/editing-content.json`)
