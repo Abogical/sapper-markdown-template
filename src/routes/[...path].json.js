@@ -69,11 +69,13 @@ export const get = async (req, res) => {
 	if (page.html)
 		result = page;
 	else {
-		result = {};
+		result = [];
 		for (const [key, entry] of Object.entries(page)) {
 			const entryRes = await entry;
-			result[key] = entryRes.meta || entryRes;
+			result.push([key, entryRes.meta || entryRes]);
 		}
+		const sortKey = (x) => x[1].published_time || Infinity;
+		result.sort((x, y) => sortKey(y) - sortKey(x));
 	}
 
 	res.end(JSON.stringify(result));

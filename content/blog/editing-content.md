@@ -55,17 +55,19 @@ File format. See [`/blog/editing-content.json`](/blog/editing-content.json) for 
 	"html": "<HTML parsed from markdown>"
 }
 ```
-Folder format. See [`blog.json`](/blog.json) for an example.
+Folder format. Array of files is sorted by most recently published files first. See [`blog.json`](/blog.json) for an example.
 ```
-{
-	"<file1>": {
+[
+	"<file1>", {
 		<metadata of file1>
 	},
-	"<file2>": {
+	"<file2>", {
 		<metadata of file2>
 	}
 	...
-}
+]
 ```
+For now, folders will be first in the array, with an undefined order between them. This may change in the future.
+
 ---
 Are there any missing features or pesky bugs? Drop an issue or help out with a PR at https://github.com/Abogical/sapper-markdown-template
