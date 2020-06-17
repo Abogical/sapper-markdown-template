@@ -5,6 +5,9 @@
 		const res = await this.fetch(`blog/${params.slug}.json`);
 		const data = await res.json();
 
+		data.meta.formatted_published_time = new Date(data.meta.published_time).toLocaleDateString();
+		data.meta.formatted_modified_time = new Date(data.meta.modified_time).toLocaleDateString();
+
 		if (res.status === 200) {
 			return { post: data };
 		} else {
@@ -24,14 +27,14 @@
 		In this page, Svelte can't know which elements are
 		going to appear inside the {{{post.html}}} block,
 		so we have to use the :global(...) modifier to target
-		all elements inside .content
+		all elements inside article
 	*/
-	.content :global(h2) {
+	article :global(h2) {
 		font-size: 1.4em;
 		font-weight: 500;
 	}
 
-	.content :global(pre) {
+	article :global(pre) {
 		background-color: #f9f9f9;
 		box-shadow: inset 1px 1px 5px rgba(0,0,0,0.05);
 		padding: 0.5em;
@@ -39,26 +42,62 @@
 		overflow-x: auto;
 	}
 
-	.content :global(pre) :global(code) {
+	article :global(pre) :global(code) {
 		background-color: transparent;
 		padding: 0;
 	}
 
-	.content :global(ul) {
+	article :global(ul) {
 		line-height: 1.5;
 	}
 
-	.content :global(li) {
+	article :global(li) {
 		margin: 0 0 0.5em 0;
+	}
+
+	article :global(table) {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	article :global(td, th) {
+		padding: 1em;
+	}
+
+	article :global(thead) {
+		border-bottom: solid rgb(255,62,0) 1px;
+	}
+
+	article :global(td + td, th + th) {
+		border-left: solid rgb(255,62,0) 1px;
+	}
+
+	article :global(tr:nth-child(2n)) {
+		background: rgba(255, 62, 0, 0.1);
+	}
+
+	header p {
+		font-style: italic;
 	}
 </style>
 
 <svelte:head>
 	<title>{post.meta.title}</title>
+	<meta property="og:type" content="article"/>
+	<meta property="og:article:published_time" content={post.meta.published_time}/>
+	<meta property="og:article:modified_time" content={post.meta.modified_time}/>
 </svelte:head>
 
-<h1>{post.meta.title}</h1>
-
-<div class='content'>
+<article>
+	<header>
+		<h1>{post.meta.title}</h1>
+		<p>
+			Published on <time datetime={post.meta.published_time}>{post.meta.formatted_published_time}</time>
+			{#if post.meta.published_time !== post.meta.modified_time}
+				| Last modified on
+				<time datetime={post.meta.modified_time}>{post.meta.formatted_modified_time}</time>
+			{/if}
+		</p>
+	</header>
 	{@html post.html}
-</div>
+</article>

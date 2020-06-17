@@ -90,19 +90,30 @@ A default blog page and about page is provided to preload these JSON files to re
 #### Markdown file format
 This site uses [`front-matter`](https://npmjs.com/package/front-matter) to extract post metadata and [`marked`](https://npmjs.com/package/marked) to parse the markdown file.
 
-Metadata is written at the start of the markdown file between two triple dashes (`---`).
+Metadata is written at the start of the markdown file between two triple dashes (`---`). The template supports the following metadata:
+
+Name | Description | Default
+---|---|---
+title | Title of page| `undefined`
+published_time|Date of published time. Must be parsable by [JavaScript's `Date.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) | File creation time.
+modified_time | Date of modification time. Must be parsable by [JavaScript's `Date.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) | File modification time.
+
+
+Example:
 ```
 ---
 title: My first blog post!
+published_time: 2007-07-07
+modified_time: 2007-07-14
 ---
-```
-This template currently only supports adding a title. More metadata features may come in the near future.
 
 This is then followed by regular markdown. The markdown would follow any [specification `marked` implements](https://marked.js.org/#/README.md#specifications).
 
 ```
 ---
 title: My first blog post!
+published_time: 2007-07-07
+modified_time: 2007-07-14
 ---
 Hi everyone! This my first blog post. Checkout my [latest video](https://youtu.be/dQw4w9WgXcQ)!
 ```

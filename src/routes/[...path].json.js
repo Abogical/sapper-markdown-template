@@ -1,6 +1,6 @@
 // Extract and parse all the content on the content folder
 
-import { readdir, readFile } from 'fs';
+import { readdir, readFile, stat } from 'fs';
 import { promisify } from 'util';
 import { resolve, join, basename } from 'path';
 import matter from 'front-matter';
@@ -8,6 +8,7 @@ import marked from 'marked';
 
 const readdirPromise = promisify(readdir);
 const readFilePromise = promisify(readFile);
+const statPromise = promisify(stat)
 
 const contentLoader = async (parent) => {
 	const res = {};
@@ -18,6 +19,14 @@ const contentLoader = async (parent) => {
 		else {
 			res[basename(entry.name, '.md')] = (async () => {
 				const { attributes, body } = matter(await readFilePromise(absPath, 'utf-8'), { allowUnsafe: true });
+				let statResult;
+				const getStat =  () => {
+					if(statResult === undefined)
+						statResult = statPromise(absPath);
+					return statResult;
+				}
+				attributes.published_time = attributes.published_time? new Date(attributes.published_time) : (await getStat()).birthtime;
+				attributes.modified_time = attributes.modified_time? new Date(attributes.modified_time) : (await getStat()).mtime;
 				return {
 					meta: attributes,
 					html: marked(body)
