@@ -106,7 +106,7 @@ title: My first blog post!
 published_time: 2007-07-07
 modified_time: 2007-07-14
 ---
-
+```
 This is then followed by regular markdown. The markdown would follow any [specification `marked` implements](https://marked.js.org/#/README.md#specifications).
 
 ```
