@@ -83,6 +83,7 @@
 
 <svelte:head>
 	<title>{post.meta.title}</title>
+	<meta name="keywords" content={post.meta.tags}/>
 	<meta property="og:type" content="article"/>
 	<meta property="og:article:published_time" content={post.meta.published_time}/>
 	<meta property="og:article:modified_time" content={post.meta.modified_time}/>

@@ -25,6 +25,7 @@ const contentLoader = async (parent) => {
 						statResult = statPromise(absPath);
 					return statResult;
 				}
+				attributes.tags = attributes.tags && attributes.tags.replace(/,\s+(\S)/g, ',$1');
 				attributes.published_time = attributes.published_time? new Date(attributes.published_time) : (await getStat()).birthtime;
 				attributes.modified_time = attributes.modified_time? new Date(attributes.modified_time) : (await getStat()).mtime;
 				return {

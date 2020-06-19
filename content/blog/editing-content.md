@@ -2,6 +2,7 @@
 title: Editing content
 published_time: 2020-06-10
 modified_time: 2020-06-17
+tags: edit, tutorial
 ---
 All content are under the `content` folder as markdown files. Editing any markdown files under this folder will change the pages on this site. Adding folders will also create a heirarchy of pages.
 
@@ -22,6 +23,7 @@ Metadata is written at the start of the markdown file between two triple dashes 
 Name | Description | Default
 ---|---|---
 title | Title of page| `undefined`
+tags | Keywords of a page, seperated by commas | `undefined`
 published_time|Date of published time. Must be parsable by [JavaScript's `Date.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) | File creation time.
 modified_time | Date of modification time. Must be parsable by [JavaScript's `Date.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) | File modification time.
 
@@ -32,6 +34,7 @@ Example:
 title: My first blog post!
 published_time: 2007-07-07
 modified_time: 2007-07-14
+tags: personal, first, beginning
 ---
 ```
 
